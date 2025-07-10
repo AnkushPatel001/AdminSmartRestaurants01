@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "206000660678",
+    "project_id": "adminsmartrestaurant",
+    "storage_bucket": "adminsmartrestaurant.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206000660678:android:8fa3f2a50dc7e2384577c7",
+        "android_client_info": {
+          "package_name": "com.example.adminsmartrestaurants"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoCCQwtOmkmBR-7EFXl2bizpSWbGLC934"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

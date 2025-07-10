@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="26dp"
+    android:height="26dp"
+    android:viewportWidth="26"
+    android:viewportHeight="26">
+
+    <!-- Circular background with gradient -->
+    <path
+        android:pathData="M8,0L18,0A8,8 0,0 1,26 8L26,18A8,8 0,0 1,18 26L8,26A8,8 0,0 1,0 18L0,8A8,8 0,0 1,8 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="13"
+                android:startY="0"
+                android:endX="13"
+                android:endY="26"
+                android:type="linear">
+                <item android:offset="0" android:color="#335935" />
+                <item android:offset="1" android:color="#0D7E4E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Minus sign (horizontal line) -->
+    <path
+        android:pathData="M8,13H18"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:fillColor="@android:color/transparent" />
+</vector>
