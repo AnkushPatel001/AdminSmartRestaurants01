@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.adminsmartrestaurants.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -32,8 +30,8 @@ class MainActivity : AppCompatActivity() {
             val intent= Intent(this,AdminProfileActivity::class.java)
             startActivity(intent)
         }
-        binding.CreateUser.setOnClickListener{
-            val intent= Intent(this,CreateUserActivity::class.java)
+        binding.customerFeedback.setOnClickListener{
+            val intent= Intent(this,CustomerFeedbackActivity::class.java)
             startActivity(intent)
         }
         binding.PendingOrderTextView.setOnClickListener{

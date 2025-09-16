@@ -10,7 +10,7 @@ import com.example.adminsmartrestaurants.databinding.ActivityPendingOrderBinding
 class PendingOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPendingOrderBinding
-    private lateinit var
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

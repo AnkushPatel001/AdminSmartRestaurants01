@@ -279,7 +279,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/CreateUser"
+        android:id="@+id/customerFeedbackCard"
         android:layout_width="160dp"
         android:layout_height="100dp"
         android:layout_marginEnd="25dp"
@@ -288,22 +288,34 @@
         app:layout_constraintBottom_toBottomOf="@+id/profilecardview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profilecardview">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/userplus"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center_horizontal"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Create Profile"
-            android:textStyle="bold"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/almendra"/>
+
+        <!-- LinearLayout for Centering -->
+        <LinearLayout
+            android:id="@+id/customerFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <!-- Feedback Icon -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_feedback"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Feedback Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer Feedback"
+                android:textStyle="bold"
+                android:fontFamily="@font/almendra"/>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="160dp"

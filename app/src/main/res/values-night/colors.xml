@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFFFF</color> <!-- text turns white -->
+    <color name="white">#121212</color>   <!-- dark background -->
+
+    <color name="green">#66BB6A</color>
+    <color name="lightgreen">#33691E</color>
+    <color name="gray">#2C2C2C</color>
+    <color name="red">#EF5350</color>
+    <color name="blue">#7FA8FF</color>
+
+    <!-- Theme-specific -->
+    <color name="backgroundColor">@color/white</color>
+    <color name="primaryTextColor">@color/black</color>
+    <color name="secondaryTextColor">@color/gray</color>
+</resources>

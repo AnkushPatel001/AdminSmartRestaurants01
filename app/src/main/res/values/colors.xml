@@ -2,9 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="green">#045F09</color>
     <color name="lightgreen">#BE8DBD8E</color>
     <color name="gray">#E3E7E3</color>
     <color name="red">#DC5E55</color>
     <color name="blue">#5472CC</color>
+
+    <!-- Theme-specific -->
+    <color name="backgroundColor">@color/white</color>
+    <color name="primaryTextColor">@color/black</color>
+    <color name="secondaryTextColor">@color/gray</color>
 </resources>
