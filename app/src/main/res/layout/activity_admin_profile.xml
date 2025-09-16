@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/almendra"
         android:layout_marginTop="20dp"
-        android:text="Admin Profile Dashboard"
+        android:text="Profile Dashboard"
         android:textColor="@color/green"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backbutton" />

@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.customerFeedback.setOnClickListener{
-            val intent= Intent(this,CustomerFeedbackActivity::class.java)
+            val intent= Intent(this, FeedbackCustomerActivity::class.java)
             startActivity(intent)
         }
         binding.PendingOrderTextView.setOnClickListener{
