@@ -14,20 +14,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.auth
+import com.google.firebase.auth.*
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.database
+import com.google.firebase.database.FirebaseDatabase
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var email: String
+    private lateinit var password: String
     private var username: String? = null
     private var nameOfRestaurant: String? = null
-    private lateinit var password: String
+
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -41,102 +38,143 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-        // Setup Google Sign-In options
-        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
-        // Initialize Firebase Auth and Database
-        auth = Firebase.auth
-        database = Firebase.database.reference
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+        // Firebase
+        auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference
 
-        // Login button click
+        // Google Sign-In
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // Manual Login
         binding.loginbutton.setOnClickListener {
             email = binding.email.text.toString().trim()
             password = binding.password.text.toString().trim()
 
             if (email.isBlank() || password.isBlank()) {
-                Toast.makeText(this, "Please Fill All Details", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please fill all details", Toast.LENGTH_SHORT).show()
             } else {
-                createUserAccount(email, password)
+                loginWithEmail(email, password)
             }
         }
-        binding.Googlebutton.setOnClickListener{
+
+        // Google Login
+        binding.Googlebutton.setOnClickListener {
             val signIntent = googleSignInClient.signInIntent
             launcher.launch(signIntent)
-
         }
 
-
-        // Navigation to SignInActivity
+        // Navigate to SignUp
         binding.donthaveaccount.setOnClickListener {
-            val intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignInActivity::class.java))
         }
     }
 
-    private fun createUserAccount(email: String, password: String) {
+    // Manual Login + Fallback to SignUp
+    private fun loginWithEmail(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val user: FirebaseUser? = auth.currentUser
-                Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show()
-                updatedUi(user)
+                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                updatedUi(auth.currentUser)
             } else {
-                // If sign in fails, try to create a new user
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val user: FirebaseUser? = auth.currentUser
-                        Toast.makeText(this, "User Created and Logged In Successfully", Toast.LENGTH_SHORT).show()
-                        saveUserdata()
-                        updatedUi(user)
+                // Agar user exist nahi hai -> new account create karna
+                auth.fetchSignInMethodsForEmail(email).addOnSuccessListener { methods ->
+                    if (methods.signInMethods?.isNotEmpty() == true) {
+                        Toast.makeText(this, "Wrong password, try again", Toast.LENGTH_SHORT).show()
                     } else {
-                        Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
-                        Log.d("Account", "createUserAccount: Authentication Failed", task.exception)
+                        auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener { createTask ->
+                                if (createTask.isSuccessful) {
+                                    saveUserData()
+                                    Toast.makeText(this, "Account Created & Logged In", Toast.LENGTH_SHORT).show()
+                                    updatedUi(auth.currentUser)
+                                } else {
+                                    Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show()
+                                    Log.e("Account", "createUserAccount: Failed", createTask.exception)
+                                }
+                            }
                     }
                 }
             }
         }
     }
 
-    private fun saveUserdata() {
+    private fun saveUserData() {
         email = binding.email.text.toString().trim()
         password = binding.password.text.toString().trim()
 
-        val user = UserModel(email = email, password = password, username = username, nameOfRestaurant = nameOfRestaurant)
+        val user = UserModel(
+            email = email,
+            password = password,
+            username = username ?: "Admin",
+            nameOfRestaurant = nameOfRestaurant ?: "Not Set"
+        )
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let {
-            database.child("user").child(it).setValue(user)
+            database.child("admins").child(it).setValue(user)
         }
     }
-//check if the user is already logged in
-    override fun onStart(){
+
+    // Auto-login if already logged in
+    override fun onStart() {
         super.onStart()
-    val currrentUser:FirebaseUser? = auth.currentUser
-    if (currrentUser!=null){
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }
+
     private fun updatedUi(user: FirebaseUser?) {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
-
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        result->
-        if(result.resultCode == Activity.RESULT_OK){
+    // Google Sign-In Launcher
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            if(task.isSuccessful){
-                val Account : GoogleSignInAccount = task.result
-                val credentials = GoogleAuthProvider.getCredential(Account.idToken,null)
-                auth.signInWithCredential(credentials).addOnCompleteListener { authTask->
-                    if(authTask.isSuccessful){
-                        Toast.makeText(this, "SuccessFully Sign In With Google", Toast.LENGTH_SHORT).show()
-                        updatedUi(authTask.result?.user)
-                        finish()
-                    }else{
-                        Toast.makeText(this, "Google Sign In failed", Toast.LENGTH_SHORT).show()
+            try {
+                val account: GoogleSignInAccount = task.result
+                firebaseAuthWithGoogle(account)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Google Sign In Failed", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    // Firebase Auth with Google
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+        auth.signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val user = auth.currentUser
+                val uid = user?.uid ?: ""
+
+                // Check if already in DB
+                database.child("admins").child(uid).get().addOnSuccessListener { snapshot ->
+                    if (snapshot.exists()) {
+                        Toast.makeText(this, "Welcome Back!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val userMap = mapOf(
+                            "username" to (user?.displayName ?: "Admin"),
+                            "restaurantName" to "Not Set",
+                            "email" to (user?.email ?: "")
+                        )
+                        database.child("admins").child(uid).setValue(userMap)
+                        Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show()
                     }
+                    updatedUi(user)
+                }
+            } else {
+                val ex = task.exception
+                if (ex is FirebaseAuthUserCollisionException) {
+                    Toast.makeText(this, "This email is already linked with another account", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Firebase Auth Failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }

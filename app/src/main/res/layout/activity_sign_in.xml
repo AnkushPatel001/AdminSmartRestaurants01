@@ -14,7 +14,7 @@
         android:id="@+id/imageView3"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -160,9 +160,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/Createbutton"
-        android:layout_width="170dp"
-        android:layout_height="57dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/edittextshape"
         android:backgroundTint="@color/lightgreen"
         android:padding="5dp"
@@ -173,6 +175,26 @@
         app:layout_constraintEnd_toEndOf="@+id/editpassword"
         app:layout_constraintStart_toStartOf="@+id/editpassword"
         app:layout_constraintTop_toBottomOf="@+id/editpassword" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/Googlebutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittextshape"
+        android:drawableLeft="@drawable/google"
+        android:drawablePadding="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/almendra"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alreadyhaveaccount" />
 
     <TextView
         android:id="@+id/alreadyhaveaccount"
@@ -189,12 +211,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Design By:-Ankush Patel"
-        android:textColor="@color/black"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/almendra"
+        android:text=" Design By:-Ankush Patel"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

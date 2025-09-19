@@ -8,7 +8,6 @@ import com.example.adminsmartrestaurants.adapter.AddItemAdapter
 import com.example.adminsmartrestaurants.databinding.ActivityAllItemBinding
 import com.example.adminsmartrestaurants.model.AllMenu
 import com.google.firebase.database.*
-
 class AllItemActivity : AppCompatActivity() {
 
     private val binding: ActivityAllItemBinding by lazy {
@@ -22,7 +21,10 @@ class AllItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        database = FirebaseDatabase.getInstance().getReference("menu")
+        // ✅ Ab items Admin/Menu ke andar jayenge
+        database = FirebaseDatabase.getInstance()
+            .getReference("admins")
+            .child("menu")
 
         adapter = AddItemAdapter(this)
         binding.MenuRecycleView.layoutManager = LinearLayoutManager(this)
@@ -47,7 +49,11 @@ class AllItemActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@AllItemActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@AllItemActivity,
+                    "Failed to fetch data",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

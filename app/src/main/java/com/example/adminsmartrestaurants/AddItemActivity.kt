@@ -80,7 +80,8 @@ class AddItemActivity : AppCompatActivity() {
     }
 
     private fun uploadData() {
-        val menuRef: DatabaseReference = database.getReference("menu")
+        // ✅ Admin ke andar Menu node me item save hoga
+        val menuRef: DatabaseReference = database.getReference("admins").child("menu")
         val key = "${foodName}_${System.currentTimeMillis()}"
 
         val newItem = AllMenu(
@@ -107,6 +108,7 @@ class AddItemActivity : AppCompatActivity() {
             Toast.makeText(this, "Data Upload Failed", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun clearInputs() {
         binding.foodName.text.clear()
