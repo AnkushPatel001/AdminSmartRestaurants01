@@ -63,4 +63,4 @@ This app simplifies tasks for admins:
 
 1. Clone the repository:  
 ```bash
-git clone <admin-app-repo-url>
+git clone <[admin-app-repo-url](https://github.com/AnkushPatel001/AdminSmartRestaurants01.git)>
