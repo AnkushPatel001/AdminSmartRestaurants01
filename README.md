@@ -1,19 +1,19 @@
-# 🍽️ Smart Restaurant User App
+# 🛠️ Smart Restaurant Admin App
 
-The **Smart Restaurant User App** is a modern Android application designed to provide customers a seamless dining experience.  
-Users can browse menu items, add to cart, place orders, track order history, and manage their profile – all from their mobile device.
+The **Smart Restaurant Admin App** is designed for restaurant owners to manage menu items, orders, and profiles efficiently.  
+This app allows admins to add/edit menu items, upload images, view and update order status, and monitor customer orders in real-time.
 
 ---
 
 ## 🌟 Why This App?
 
-Eating out or ordering food online can be complicated.  
-This app simplifies the process with:
+Managing restaurant operations manually can be time-consuming.  
+This app simplifies tasks for admins:
 
-- **Intuitive UI**: Easy to browse and select food items.  
-- **Dynamic Cart**: Add, remove, or update items instantly.  
-- **Order Tracking**: View current and past orders.  
-- **Profile Management**: Manage user details and preferences easily.  
+- **Menu Management**: Add, update, or remove items quickly  
+- **Order Monitoring**: Track all orders and update statuses  
+- **Image Uploads**: Add item images via Imgur  
+- **Profile Management**: Manage admin account easily  
 
 ---
 
@@ -21,31 +21,30 @@ This app simplifies the process with:
 
 | Feature | Description |
 |---------|-------------|
-| Browse Menu | Explore food items by category with images and prices |
-| Add/Remove Cart Items | Dynamically update cart with selected items |
-| Place Orders | Complete order with a single click |
-| Order History | Check past orders and reorder easily |
-| Profile Management | Update user details like name, email, and address |
-| Firebase Integration | Secure login/signup and real-time database updates |
-| Dynamic Updates | Cart and menu reflect real-time changes |
+| Add/Edit/Delete Items | Manage restaurant menu items efficiently |
+| Image Upload via URL | Upload item images using Imgur links |
+| View Orders | Monitor all orders placed by customers |
+| Update Order Status | Change status (Pending, Completed) in real-time |
+| Admin Profile Management | Update admin details like name, email |
+| Firebase Integration | Authentication and Realtime Database updates |
 
 ---
 
 ## 📸 Screenshots
 
-> Replace the image links with actual screenshots of your app
+> Replace the image links with actual screenshots of your Admin App
 
-**Home Screen**  
-![Home Screen](link-to-home-screenshot)
+**Admin Home**  
+![Admin Home](screenshots/admin_home.png)
 
-**Cart Screen**  
-![Cart Screen](link-to-cart-screenshot)
+**Manage Items**  
+![Manage Items](screenshots/manage_items.png)
 
-**Order History**  
-![Order History](link-to-history-screenshot)
+**Orders List**  
+![Orders List](screenshots/orders_list.png)
 
 **Profile**  
-![Profile Screen](link-to-profile-screenshot)
+![Profile Screen](screenshots/admin_profile.png)
 
 ---
 
@@ -55,8 +54,8 @@ This app simplifies the process with:
 - **IDE:** Android Studio  
 - **Database:** Firebase Realtime Database  
 - **Authentication:** Firebase Auth  
-- **UI/UX Design:** XML + Figma reference  
-- **Image Hosting:** Imgur (for profile & menu images)
+- **Image Hosting:** Imgur  
+- **UI/UX Design:** XML + Figma reference
 
 ---
 
@@ -64,4 +63,4 @@ This app simplifies the process with:
 
 1. Clone the repository:  
 ```bash
-git clone <user-app-repo-url>
+git clone <admin-app-repo-url>
